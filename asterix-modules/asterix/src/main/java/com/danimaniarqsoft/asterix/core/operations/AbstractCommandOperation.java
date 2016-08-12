@@ -1,24 +1,19 @@
 package com.danimaniarqsoft.asterix.core.operations;
 
-import com.github.javaparser.ParseException;
-
 import java.io.FileNotFoundException;
-
-import lombok.extern.slf4j.Slf4j;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.danimaniarqsoft.asterix.core.ModelOperationsService;
 import com.danimaniarqsoft.asterix.domain.AsterixContext;
 import com.danimaniarqsoft.asterix.domain.FacesComponente;
 import com.danimaniarqsoft.asterix.faces.factory.FacesComponentFactory;
 import com.danimaniarqsoft.asterix.faces.templates.FacesTemplateFactory;
 import com.danimaniarqsoft.asterix.faces.templates.TypeOfComponent;
 import com.danimaniarqsoft.asterix.maven.MavenProject;
+import com.github.javaparser.ParseException;
 
-@Slf4j
 public abstract class AbstractCommandOperation {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCommandOperation.class);
 
