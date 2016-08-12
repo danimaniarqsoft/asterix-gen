@@ -1,0 +1,8 @@
+<!-- Creado por Asterix-soft -->
+<h:panelGrid columns="2" cellpadding="5">  
+    <p:outputLabel for="${componentId}" value="${componentName}" />
+    <p:selectOneMenu id="${componentId}" value="${r"#"}{${value}}">  
+        <f:selectItem itemLabel="Selecciona un valor" itemValue="" />  
+        <f:selectItems value="${r"#"}{${selectItems}}" />  
+    </p:selectOneMenu>  
+</h:panelGrid>  
