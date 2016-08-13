@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.shell.core.CommandMarker;
 import org.springframework.shell.core.annotation.CliAvailabilityIndicator;
 import org.springframework.shell.core.annotation.CliCommand;
 import org.springframework.shell.core.annotation.CliOption;
@@ -25,22 +24,20 @@ import com.danimaniarqsoft.asterix.validators.MavenLayerValidator;
  */
 
 @Component
-public class JsfScaffoldingCommand implements CommandMarker {
+public class JsfScaffoldingCommand extends Command {
 
 	@Autowired
-	@Qualifier("selectOneMenuOperation")
-	private AbstractCommandOperation operation;
+	public JsfScaffoldingCommand(@Qualifier("selectOneMenuOperation") AbstractCommandOperation operation) {
+		this.operation = operation;
+	}
 
-	@Autowired
-	private MavenLayerValidator mavenValidator;
-
-	@CliAvailabilityIndicator({ "scaffolding full" })
+	@CliAvailabilityIndicator({ "jsf scaffolding" })
 	public boolean isFullAvailable() {
 		return mavenValidator.validateLayer().isEmpty();
 	}
 
-	@CliCommand(value = "scaffolding jsf", help = "Construye un cliclo CRUD de la entidad seleccionada")
-	public String scaffoldingFull(
+	@CliCommand(value = "jsf scaffolding", help = "Construye un cliclo CRUD de la entidad seleccionada")
+	public String jsfScaffolding(
 			@CliOption(key = { "",
 					"model" }, mandatory = true, help = "clase de dominio a partir de la cual se genera su CRUD") final DomainElement domainElement)
 			throws IOException {

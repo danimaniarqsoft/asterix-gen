@@ -3,8 +3,6 @@ package com.danimaniarqsoft.asterix.services;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import lombok.extern.log4j.Log4j;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,45 +21,43 @@ import freemarker.template.TemplateException;
  * @author Daniel Cortes Pichardo
  *
  */
-@Log4j
 @Service
 public class TemplateService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCommandOperation.class);
 
-    @Autowired
-    private FreemarkerTemplateEngine templateEngine;
+	@Autowired
+	private FreemarkerTemplateEngine templateEngine;
 
-    public String buildFacesComponent(FacesComponente facesComponente) {
-        switch (facesComponente.getTypeOfComponent()) {
-        case SELECT_ONE_MENU_SIMPLE:
-            return createSelectOneMenu(facesComponente);
-        default:
-            throw new UnsupportedOperationException("Método no existente");
-        }
-    }
+	public String buildFacesComponent(FacesComponente facesComponente) {
+		switch (facesComponente.getTypeOfComponent()) {
+		case SELECT_ONE_MENU_SIMPLE:
+			return createSelectOneMenu(facesComponente);
+		default:
+			throw new UnsupportedOperationException("Método no existente");
+		}
+	}
 
-    private String createSelectOneMenu(FacesComponente facesComponente) {
-        Template template;
-        try (StringWriter writer = new StringWriter()) {
-            template = templateEngine.getTemplate("selectOneMenu.xhtml");
-            SelectOneMenuDM selectOneMenu = createSelectOneMenuDM(facesComponente);
-            template.process(selectOneMenu, writer);
-            return writer.toString();
-        } catch (IOException e) {
-            LOGGER.error(e.getMessage());
-        } catch (TemplateException e) {
-            LOGGER.error(e.getMessage());
-        }
-        return null;
-    }
+	private String createSelectOneMenu(FacesComponente facesComponente) {
+		Template template;
+		try (StringWriter writer = new StringWriter()) {
+			template = templateEngine.getTemplate("selectOneMenu.xhtml");
+			SelectOneMenuDM selectOneMenu = createSelectOneMenuDM(facesComponente);
+			template.process(selectOneMenu, writer);
+			return writer.toString();
+		} catch (IOException e) {
+			LOGGER.error(e.getMessage());
+		} catch (TemplateException e) {
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
 
-    private SelectOneMenuDM createSelectOneMenuDM(
-            FacesComponente facesComponente) {
-        SelectOneMenuDM selectOneMenu = new SelectOneMenuDM();
-        selectOneMenu.setComponentId(facesComponente.getId());
-        selectOneMenu.setComponentName(facesComponente.getModelSelected());
-        selectOneMenu.setSelectItems(facesComponente.getModelList());
-        selectOneMenu.setValue(facesComponente.getModelSelected());
-        return selectOneMenu;
-    }
+	private SelectOneMenuDM createSelectOneMenuDM(FacesComponente facesComponente) {
+		SelectOneMenuDM selectOneMenu = new SelectOneMenuDM();
+		selectOneMenu.setComponentId(facesComponente.getId());
+		selectOneMenu.setComponentName(facesComponente.getModelSelected());
+		selectOneMenu.setSelectItems(facesComponente.getModelList());
+		selectOneMenu.setValue(facesComponente.getModelSelected());
+		return selectOneMenu;
+	}
 }
